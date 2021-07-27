@@ -1,29 +1,38 @@
-import { AppBar, CssBaseline, makeStyles, Toolbar, Typography } from "@material-ui/core";
-import { ShoppingCart } from "@material-ui/icons";
-import Store from "@material-ui/icons/Store";
-import { Fragment } from "react";
+import { AppBar, Badge, IconButton, makeStyles, Toolbar, Typography } from "@material-ui/core";
+import { Store, ShoppingCart } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
-    icon: {
+    root: {
+        flexGrow: 1,
+    },
+    menuButton: {
         marginRight: theme.spacing(2),
+    },
+    title: {
+        flexGrow: 1,
     },
 }));
 
 function Menu() {
     const classes = useStyles();
     return (
-        <Fragment>
-            <CssBaseline />
-            <AppBar position="relative">
+        <div className={classes.root}>
+            <AppBar position="static">
                 <Toolbar>
-                    <Store className={classes.icon} />
-                    <Typography variant="h6" color="inherit" noWrap>
-                        Lojas
+                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" href="/">
+                        <Store />
+                    </IconButton>
+                    <Typography variant="h6" className={classes.title}>
+                        Loja
                     </Typography>
-                    <ShoppingCart className={classes.icon} />
+                    <IconButton color="inherit" href="/carrinho">
+                        <Badge badgeContent={4} color="secondary">
+                            <ShoppingCart />
+                        </Badge>
+                    </IconButton>
                 </Toolbar>
             </AppBar>
-        </Fragment>
+        </div>
     );
 }
 
