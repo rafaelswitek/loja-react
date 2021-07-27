@@ -42,7 +42,12 @@ function ProductCard({ card, img }) {
         </CardContent>
         <CardActions>
 
-          <Button variant="contained" size="small" color="primary" endIcon={<AddCircle className={classes.icon} />}>
+          <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            endIcon={<AddCircle className={classes.icon} />}
+          >
             Adicionar ao carrinho
           </Button>
         </CardActions>
