@@ -1,6 +1,7 @@
 import { AppBar, Badge, IconButton, makeStyles, Toolbar, Typography } from "@material-ui/core";
 import { Store, ShoppingCart } from "@material-ui/icons";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import ValueContext from "../context/cart";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,9 +28,16 @@ function Menu() {
                         Loja
                     </Typography>
                     <IconButton color="inherit" component={Link} to="/carrinho">
-                        <Badge badgeContent={4} color="secondary">
-                            <ShoppingCart />
-                        </Badge>
+                        <ValueContext.Consumer>
+                            {
+                                (value) => (
+                                    <Badge badgeContent={value} color="secondary">
+                                        <ShoppingCart />
+                                    </Badge>
+                                )
+                            }
+                        </ValueContext.Consumer>
+
                     </IconButton>
 
                 </Toolbar>
