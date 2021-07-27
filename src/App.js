@@ -8,8 +8,8 @@ import Page404 from './pages/Page404';
 function App() {
   return (
     <Fragment>
-      <Menu />
       <BrowserRouter>
+        <Menu />
         <Switch>
           <Route exact path='/'>
             <ProductList />

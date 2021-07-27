@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { Container, Grid, makeStyles } from "@material-ui/core";
 import ProductCard from "../components/ProductCard";
+import { get } from '../api'
 
 const useStyles = makeStyles((theme) => ({
     cardGrid: {
@@ -13,15 +15,17 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 function ProductList() {
     const classes = useStyles();
+    const [products, setProduct] = useState([]);
+    useEffect(() => {
+        get(setProduct)
+    }, [])
     return (
         <Container className={classes.cardGrid} maxWidth="md">
             <Grid container spacing={4}>
-                {cards.map((card) => (
-                    <ProductCard card={card} img="http://lorempixel.com/640/480/food" />
+                {products.map((card) => (
+                    <ProductCard card={card} />
                 ))}
             </Grid>
         </Container>
