@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton } from '@material-ui/core';
+import { Fragment, useState } from 'react';
+import { ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useCart } from '../context/CartContext';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -55,34 +55,37 @@ function ProductCart({ product }) {
   }
 
   return (
-    <ListItem>
-      <ListItemAvatar>
-        <Avatar className={classes.large} src={product.image} />
-      </ListItemAvatar>
-      <ListItemText
-        primary={product.name}
-        secondary={
-          new Intl.NumberFormat('pr-BR', { style: 'currency', currency: 'BRL' }).format(product.price)
-        }
-      />
-      <ListItemText
-        primary={
-          `TOTAL: ${new Intl.NumberFormat('pr-BR', { style: 'currency', currency: 'BRL' }).format(total)}`
-        }
-        secondary={`Quantidade: ${quantity}`}
-      />
-      <ListItemSecondaryAction>
-        <IconButton aria-label="delete" color="primary" onClick={addQuantity}>
-          <AddIcon />
-        </IconButton>
-        <IconButton aria-label="delete" color="secondary" onClick={removeQuantity}>
-          <RemoveIcon />
-        </IconButton>
-        <IconButton edge="end" aria-label="delete" color="default" onClick={removeProduct}>
-          <DeleteIcon />
-        </IconButton>
-      </ListItemSecondaryAction>
-    </ListItem>
+    <Fragment>
+      <ListItem>
+        <ListItemAvatar>
+          <Avatar className={classes.large} src="https://picsum.photos/200/300" />
+        </ListItemAvatar>
+        <ListItemText
+          primary={product.name}
+          secondary={
+            new Intl.NumberFormat('pr-BR', { style: 'currency', currency: 'BRL' }).format(product.price)
+          }
+        />
+        <ListItemText
+          primary={
+            `TOTAL: ${new Intl.NumberFormat('pr-BR', { style: 'currency', currency: 'BRL' }).format(total)}`
+          }
+          secondary={`Quantidade: ${quantity}`}
+        />
+        <ListItemSecondaryAction>
+          <IconButton aria-label="delete" color="primary" onClick={addQuantity}>
+            <AddIcon />
+          </IconButton>
+          <IconButton aria-label="delete" color="secondary" onClick={removeQuantity}>
+            <RemoveIcon />
+          </IconButton>
+          <IconButton edge="end" aria-label="delete" color="default" onClick={removeProduct}>
+            <DeleteIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+      <Divider />
+    </Fragment>
   );
 }
 

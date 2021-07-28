@@ -42,7 +42,6 @@ function ProductCard({ product }) {
     }
 
     setInCart(!inCart);
-
   }
 
   return (
@@ -50,7 +49,8 @@ function ProductCard({ product }) {
       <Card className={classes.product}>
         <CardMedia
           className={classes.cardMedia}
-          image={product.image}
+          image="https://picsum.photos/200/300"
+          // image={product.image}
           title="Imagem do produto"
         />
         <CardContent className={classes.cardContent}>

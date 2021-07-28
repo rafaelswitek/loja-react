@@ -8,15 +8,22 @@ const CartProvider = ({ children }) => {
     const initialData = dataStorage ? JSON.parse(dataStorage) : [];
 
     const [cartData, setCartData] = useState(initialData);
+    const [amount, setAmount] = useState(initialData);
 
     const changeCartData = (data) => {
         setCartData(data);
         localStorage.setItem("cartData", JSON.stringify(data));
+        setAmount(
+            data.reduce((total, item) => {
+                return total + parseFloat(item.total);
+            }, 0)
+        )
     }
 
     const valueData = {
         cartData,
-        changeCartData
+        changeCartData,
+        amount
     };
 
     return <CartContext.Provider value={valueData} >{children}</CartContext.Provider>
