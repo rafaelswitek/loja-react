@@ -6,3 +6,6 @@ Para executar o projeto rode o comando:
 ### `yarn start`
 
 Abra [http://localhost:3000](http://localhost:3000) para visualizar.
+
+
+![Alt Text](demo.gif)
