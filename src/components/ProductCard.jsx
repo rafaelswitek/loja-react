@@ -1,17 +1,11 @@
-import { Fragment } from 'react';
-import { Typography } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Grid from '@material-ui/core/Grid';
+import { useEffect, useState } from 'react';
+import { Button, Card, CardMedia, CardActions, CardContent, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { AddCircle, RemoveCircle } from '@material-ui/icons';
-import ValueContext from '../context/cart';
+import { useCart } from '../context/CartContext';
 
 const useStyles = makeStyles(() => ({
-  card: {
+  product: {
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -24,65 +18,63 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-function ProductCard({ card }) {
+function ProductCard({ product }) {
   const classes = useStyles();
+
+  const { cartData, changeCartData } = useCart();
+  const [inCart, setInCart] = useState(false);
+
+  useEffect(() => {
+    setInCart(cartData.find(element => element.id === product.id));
+  }, [])
+
+  const processProduct = () => {
+
+    const newData = [];
+
+    if (inCart) {
+      cartData.forEach(item => {
+        if (item.id !== product.id) newData.push(item);
+      })
+      changeCartData(newData);
+    } else {
+      changeCartData([...cartData, product]);
+    }
+
+    setInCart(!inCart);
+
+  }
+
   return (
-    <Grid item key={card.id} xs={12} sm={6} md={4}>
-      <Card className={classes.card}>
+    <Grid item key={product.id} xs={12} sm={6} md={4}>
+      <Card className={classes.product}>
         <CardMedia
           className={classes.cardMedia}
-          image={card.image}
+          image={product.image}
           title="Imagem do produto"
         />
         <CardContent className={classes.cardContent}>
           <Typography gutterBottom variant="h5" component="h2">
-            {card.name}
+            {product.name}
           </Typography>
           <Typography>
-            Estoque: {card.stock}
+            Estoque: {product.stock}
           </Typography>
         </CardContent>
         <CardActions>
-          <ValueContext.Consumer>
-            {
-              (options) => (
-                <Fragment>
-                  {
-                    options.state.map((value) => {
-                      return value.id
-                    }).includes(card.id) ?
-                      <Button
-                        variant="contained"
-                        size="small"
-                        color="secondary"
-                        endIcon={<RemoveCircle className={classes.icon} />}
-                        onClick={() => {
-                          let newState = options.state.filter(value => {
-                            return value.id !== card.id
-                          });
-                          options.setState([...newState]);
-                        }}
-                      >
-                        remover
-                      </Button> :
-                      <Button
-                        variant="contained"
-                        size="small"
-                        color="primary"
-                        endIcon={<AddCircle className={classes.icon} />}
-                        onClick={() => {
-                          let product = { ...card, quantity: 1 }
-                          options.setState([...options.state, product]);
-                        }}
-                      >
-                        adicionar
-                      </Button>
-                  }
-                </Fragment>
-              )
-            }
-          </ValueContext.Consumer>
 
+          <Button
+            variant="contained"
+            size="small"
+            color={inCart ? "secondary" : "primary"}
+            endIcon={
+              inCart ? <RemoveCircle className={classes.icon} /> :
+                <AddCircle className={classes.icon} />
+            }
+            onClick={processProduct}
+          >
+            {inCart ? 'Remover' : 'Adicionar'}
+          </Button>
         </CardActions>
       </Card>
     </Grid>

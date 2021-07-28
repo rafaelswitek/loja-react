@@ -24,8 +24,8 @@ function ProductList() {
     return (
         <Container className={classes.cardGrid} maxWidth="md">
             <Grid container spacing={4}>
-                {products.map((card) => (
-                    <ProductCard card={card} />
+                {products.map((product) => (
+                    <ProductCard product={product} />
                 ))}
             </Grid>
         </Container>
