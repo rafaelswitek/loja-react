@@ -29,7 +29,6 @@ function ProductCard({ product }) {
   }, [])
 
   const processProduct = () => {
-
     const newData = [];
 
     if (inCart) {
@@ -56,6 +55,9 @@ function ProductCard({ product }) {
         <CardContent className={classes.cardContent}>
           <Typography gutterBottom variant="h5" component="h2">
             {product.name}
+          </Typography>
+          <Typography variant="h6" component="h3">
+            Preço: R$ {product.price}
           </Typography>
           <Typography>
             Estoque: {product.stock}
