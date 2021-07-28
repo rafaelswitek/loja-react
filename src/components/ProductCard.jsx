@@ -20,7 +20,6 @@ const useStyles = makeStyles(() => ({
 
 function ProductCard({ product }) {
   const classes = useStyles();
-
   const { cartData, changeCartData } = useCart();
   const [inCart, setInCart] = useState(false);
 
@@ -37,6 +36,8 @@ function ProductCard({ product }) {
       })
       changeCartData(newData);
     } else {
+      product.quantity = 1;
+      product.total = product.price;
       changeCartData([...cartData, product]);
     }
 
@@ -57,7 +58,9 @@ function ProductCard({ product }) {
             {product.name}
           </Typography>
           <Typography variant="h6" component="h3">
-            Preço: R$ {product.price}
+            Preço: {
+              new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(product.price)
+            }
           </Typography>
           <Typography>
             Estoque: {product.stock}

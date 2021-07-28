@@ -1,21 +1,17 @@
-import { Container, Grid, makeStyles } from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({
-    cardGrid: {
-        paddingTop: theme.spacing(8),
-        paddingBottom: theme.spacing(8),
-    }
-}));
+import { List } from "@material-ui/core";
+import { useCart } from '../context/CartContext';
+import ProductCart from "../components/ProductCart";
 
 function Cart() {
-    const classes = useStyles();
-    return (
-        <Container className={classes.cardGrid} maxWidth="md">
-            <Grid container spacing={4}>
-                123
-            </Grid>
-        </Container>
-    );
+  const { cartData } = useCart();
+
+  return (
+    <List>
+      {cartData.map((product) => (
+        <ProductCart key={product.id} product={product} />
+      ))}
+    </List>
+  );
 }
 
 export default Cart;
